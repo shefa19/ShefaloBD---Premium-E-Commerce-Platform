@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile and account information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "addresses": { "type": "array" },
+        "wishlist": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["email", "name", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "E-commerce product item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "discountPrice": { "type": "number" },
+        "discountPercent": { "type": "number" },
+        "category": { "type": "string" },
+        "brand": { "type": "string" },
+        "sku": { "type": "string" },
+        "stock": { "type": "number" },
+        "images": { "type": "array" },
+        "thumbnail": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "isFeatured": { "type": "boolean" },
+        "isActive": { "type": "boolean" },
+        "specifications": { "type": "array" },
+        "features": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "price", "category", "stock"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["name", "slug"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Discount promo coupon",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "type": { "type": "string", "enum": ["percentage", "fixed"] },
+        "value": { "type": "number" },
+        "minOrder": { "type": "number" },
+        "maxDiscount": { "type": "number" },
+        "usageLimit": { "type": "number" },
+        "usedCount": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["code", "type", "value"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "shippingAddress": { "type": "object" },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "couponCode": { "type": "string" },
+        "tax": { "type": "number" },
+        "shippingFee": { "type": "number" },
+        "totalAmount": { "type": "number" },
+        "shippingMethod": { "type": "string" },
+        "paymentMethod": { "type": "string" },
+        "paymentStatus": { "type": "string" },
+        "orderStatus": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "items", "totalAmount", "orderStatus"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile collection"
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Product collection"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Category collection"
+    },
+    "/coupons/{couponId}": {
+      "schema": { "$ref": "#/entities/Coupon" },
+      "description": "Coupons collection"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Orders collection"
+    }
+  }
+}

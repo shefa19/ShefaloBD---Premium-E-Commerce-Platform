@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  img, video, iframe, canvas, svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Image overlay explicit high-contrast classes for text on image banners */
+.image-overlay-text-white {
+  color: #ffffff !important;
+}
+
+.image-overlay-text-amber {
+  color: #fbbf24 !important;
+}
+
+/* -------------------------------------------------------------
+   LIGHT MODE HIGH-CONTRAST STYLING OVERRIDES
+------------------------------------------------------------- */
+.light-mode-active {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Header, Navbar, Footers */
+.light-mode-active header,
+.light-mode-active nav,
+.light-mode-active footer {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Container cards, sidebars, modals, card options & panels */
+.light-mode-active .bg-slate-950,
+.light-mode-active .bg-slate-900,
+.light-mode-active .bg-slate-850,
+.light-mode-active .bg-slate-800,
+.light-mode-active .bg-slate-700,
+.light-mode-active .bg-zinc-950,
+.light-mode-active .bg-zinc-900,
+.light-mode-active .bg-zinc-800,
+.light-mode-active .bg-black {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Semi-transparent inner containers & options in light mode */
+.light-mode-active .bg-slate-950\/95,
+.light-mode-active .bg-slate-950\/90,
+.light-mode-active .bg-slate-950\/85,
+.light-mode-active .bg-slate-950\/80,
+.light-mode-active .bg-slate-950\/70,
+.light-mode-active .bg-slate-950\/60,
+.light-mode-active .bg-slate-950\/50,
+.light-mode-active .bg-slate-950\/40,
+.light-mode-active .bg-slate-900\/95,
+.light-mode-active .bg-slate-900\/90,
+.light-mode-active .bg-slate-900\/80,
+.light-mode-active .bg-slate-900\/70,
+.light-mode-active .bg-slate-900\/60,
+.light-mode-active .bg-slate-900\/50,
+.light-mode-active .bg-slate-800\/90,
+.light-mode-active .bg-slate-800\/80,
+.light-mode-active .bg-slate-800\/60,
+.light-mode-active .bg-slate-800\/50,
+.light-mode-active .bg-slate-800\/40 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Modals & Backdrop Overlays (Keep semi-transparent dark backdrop for focus) */
+.light-mode-active .fixed.inset-0.bg-slate-950\/85,
+.light-mode-active .fixed.inset-0.bg-slate-950\/80,
+.light-mode-active .fixed.inset-0.bg-slate-950\/90,
+.light-mode-active .fixed.inset-0[class*="bg-slate-950"] {
+  background-color: rgba(15, 23, 42, 0.65) !important;
+}
+
+/* Typography Overrides for Light Mode (Excluding image overlays) */
+.light-mode-active .text-white:not(.image-overlay-text-white),
+.light-mode-active .text-slate-50:not(.image-overlay-text-white),
+.light-mode-active .text-slate-100:not(.image-overlay-text-white),
+.light-mode-active .text-slate-200:not(.image-overlay-text-white),
+.light-mode-active .text-slate-300:not(.image-overlay-text-white) {
+  color: #0f172a !important;
+}
+
+.light-mode-active .text-slate-400:not(.image-overlay-text-amber):not(.image-overlay-text-white) {
+  color: #334155 !important;
+}
+
+.light-mode-active .text-slate-500,
+.light-mode-active .text-slate-600 {
+  color: #475569 !important;
+}
+
+/* Accent Colors in Light Mode */
+.light-mode-active .text-amber-400:not(.image-overlay-text-amber),
+.light-mode-active .text-amber-300:not(.image-overlay-text-amber) {
+  color: #d97706 !important;
+}
+
+.light-mode-active .text-emerald-400,
+.light-mode-active .text-emerald-300 {
+  color: #059669 !important;
+}
+
+.light-mode-active .text-rose-400,
+.light-mode-active .text-rose-300 {
+  color: #e11d48 !important;
+}
+
+/* Lucide SVGs stroke color in light mode */
+.light-mode-active svg:not(.image-overlay-text-white *):not(.image-overlay-text-amber *) {
+  color: inherit;
+}
+
+/* Buttons and Hover states in Light Mode */
+.light-mode-active .hover\:bg-slate-800:hover,
+.light-mode-active .hover\:bg-slate-900:hover,
+.light-mode-active .hover\:bg-slate-700:hover,
+.light-mode-active .hover\:bg-slate-950:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Active Amber Button Theme (Must stay vibrant amber with bold black text in both light and dark modes) */
+.bg-amber-500,
+.light-mode-active .bg-amber-500,
+.light-mode-active button.bg-amber-500 {
+  background-color: #f59e0b !important;
+  color: #0f172a !important;
+  font-weight: 900 !important;
+}
+
+.bg-amber-500 *,
+.light-mode-active .bg-amber-500 * {
+  color: #0f172a !important;
+}
+
+/* Form Fields & Dropdowns in Light Mode */
+.light-mode-active input,
+.light-mode-active select,
+.light-mode-active textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #94a3b8 !important;
+}
+
+.light-mode-active option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.light-mode-active input::placeholder,
+.light-mode-active textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Borders in Light Mode */
+.light-mode-active .border-slate-800,
+.light-mode-active .border-slate-800\/80,
+.light-mode-active .border-slate-800\/90,
+.light-mode-active .border-slate-800\/60,
+.light-mode-active .border-slate-700,
+.light-mode-active .border-slate-900 {
+  border-color: #cbd5e1 !important;
+}
