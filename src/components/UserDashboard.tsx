@@ -28,6 +28,7 @@ import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { Order, Product, Address } from '../types';
 import { formatPrice } from '../lib/formatters';
 import { BANGLADESH_DIVISIONS, getDistrictsForDivision } from '../lib/bangladeshLocations';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface UserDashboardProps {
   isOpen: boolean;
@@ -42,6 +43,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
   initialTab = 'profile',
   onQuickViewProduct,
 }) => {
+  useLockBodyScroll(isOpen);
   const { user, userProfile, updateProfileData, toggleWishlist, addAddress, removeAddress, setDefaultAddress } = useAuth();
   const { addToCart } = useCart();
   const { showToast } = useToast();
@@ -193,7 +195,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({
         setLoadingOrders(false);
       },
       (error) => {
-        handleFirestoreError(error, OperationType.GET, 'orders');
+        console.warn('User orders snapshot warning:', error.message);
         setLoadingOrders(false);
       }
     );

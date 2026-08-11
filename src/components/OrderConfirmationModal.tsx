@@ -2,6 +2,7 @@ import React from 'react';
 import { Order } from '../types';
 import { CheckCircle2, PackageCheck, ArrowRight, MapPin } from 'lucide-react';
 import { formatPrice } from '../lib/formatters';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface OrderConfirmationModalProps {
   order: Order | null;
@@ -14,6 +15,8 @@ export const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
   onClose,
   onViewDashboardOrders,
 }) => {
+  useLockBodyScroll(order !== null);
+
   if (!order) return null;
 
   return (

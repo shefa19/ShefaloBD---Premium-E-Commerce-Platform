@@ -16,6 +16,7 @@ import {
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { formatPrice } from '../lib/formatters';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface NavbarProps {
   onOpenAuth: (view?: 'login' | 'register' | 'forgot') => void;
@@ -42,6 +43,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { setIsCartOpen, totalItemsCount, subtotal } = useCart();
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useLockBodyScroll(mobileMenuOpen);
 
   const wishlistCount = userProfile?.wishlist?.length || 0;
 

@@ -1,6 +1,12 @@
 import { doc, setDoc, getDocs, collection } from 'firebase/firestore';
 import { db } from './firebase';
-import { SAMPLE_PRODUCTS, SAMPLE_CATEGORIES, SAMPLE_COUPONS } from './sampleData';
+import {
+  SAMPLE_PRODUCTS,
+  SAMPLE_CATEGORIES,
+  SAMPLE_COUPONS,
+  SAMPLE_USERS,
+  SAMPLE_ORDERS
+} from './sampleData';
 
 export async function seedInitialDataIfNeeded(force = false) {
   try {
@@ -38,6 +44,22 @@ export async function seedInitialDataIfNeeded(force = false) {
         await setDoc(doc(db, 'coupons', coup.id), coup, { merge: true });
       }
     }
+
+    const usersSnap = await getDocs(collection(db, 'users'));
+    if ((usersSnap.empty && !hasSeededBefore) || force) {
+      console.log('Seeding initial users into Firestore...');
+      for (const u of SAMPLE_USERS) {
+        await setDoc(doc(db, 'users', u.uid), u, { merge: true });
+      }
+    }
+
+    const ordersSnap = await getDocs(collection(db, 'orders'));
+    if ((ordersSnap.empty && !hasSeededBefore) || force) {
+      console.log('Seeding initial orders into Firestore...');
+      for (const ord of SAMPLE_ORDERS) {
+        await setDoc(doc(db, 'orders', ord.id), ord, { merge: true });
+      }
+    }
   } catch (error) {
     console.warn('Auto-seed check error:', error);
   }
@@ -46,4 +68,3 @@ export async function seedInitialDataIfNeeded(force = false) {
 export async function forceSeedSampleData() {
   return seedInitialDataIfNeeded(true);
 }
-

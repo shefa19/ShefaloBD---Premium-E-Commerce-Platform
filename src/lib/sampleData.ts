@@ -1,4 +1,4 @@
-import { Product, Category, Coupon } from '../types';
+import { Product, Category, Coupon, Order, UserProfile } from '../types';
 
 export const SAMPLE_CATEGORIES: Category[] = [
   {
@@ -1017,4 +1017,104 @@ export const SAMPLE_COUPONS: Coupon[] = [
     isActive: true,
   }
 ];
+
+export const SAMPLE_USERS: UserProfile[] = [
+  {
+    uid: 'demo-admin-1',
+    name: 'Shefalo Admin',
+    email: 'sishefa19@gmail.com',
+    phone: '+8801700000000',
+    role: 'admin',
+    photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    uid: 'demo-user-1',
+    name: 'Tanvir Hossain',
+    email: 'tanvir@example.com',
+    phone: '+8801811112222',
+    role: 'user',
+    photoURL: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    createdAt: new Date().toISOString(),
+  }
+];
+
+export const SAMPLE_ORDERS: Order[] = [
+  {
+    id: 'ORD-982101',
+    userId: 'demo-user-1',
+    customerName: 'Tanvir Hossain',
+    customerEmail: 'tanvir@example.com',
+    customerPhone: '+8801811112222',
+    shippingAddress: {
+      id: 'addr-1',
+      name: 'Tanvir Hossain',
+      phone: '+8801811112222',
+      addressLine1: 'House 42, Road 11, Banani',
+      city: 'Dhaka',
+      state: 'Dhaka Division',
+      zipCode: '1213',
+      country: 'Bangladesh',
+    },
+    items: [
+      {
+        productId: 'p-m3-macbook-pro',
+        productName: 'Apple MacBook Pro 16" M3 Max',
+        productImage: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80',
+        price: 349900,
+        quantity: 1,
+      }
+    ],
+    subtotal: 349900,
+    discount: 20000,
+    couponCode: 'SAVE20',
+    tax: 0,
+    shippingFee: 150,
+    totalAmount: 330050,
+    shippingMethod: 'express',
+    paymentMethod: 'bkash',
+    paymentStatus: 'paid',
+    orderStatus: 'processing',
+    createdAt: new Date(Date.now() - 3600000 * 4).toISOString(),
+    updatedAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+  },
+  {
+    id: 'ORD-982102',
+    userId: 'demo-user-2',
+    customerName: 'Nusrat Jahan',
+    customerEmail: 'nusrat@example.com',
+    customerPhone: '+8801722223333',
+    shippingAddress: {
+      id: 'addr-2',
+      name: 'Nusrat Jahan',
+      phone: '+8801722223333',
+      addressLine1: 'GEC Circle, Nasirabad',
+      city: 'Chittagong',
+      state: 'Chittagong Division',
+      zipCode: '4000',
+      country: 'Bangladesh',
+    },
+    items: [
+      {
+        productId: 'p-sony-wh1000xm5',
+        productName: 'Sony WH-1000XM5 Wireless ANC Headphones',
+        productImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+        price: 38500,
+        quantity: 1,
+      }
+    ],
+    subtotal: 38500,
+    discount: 0,
+    tax: 0,
+    shippingFee: 120,
+    totalAmount: 38620,
+    shippingMethod: 'standard',
+    paymentMethod: 'cod',
+    paymentStatus: 'pending',
+    orderStatus: 'pending',
+    createdAt: new Date(Date.now() - 3600000 * 20).toISOString(),
+    updatedAt: new Date(Date.now() - 3600000 * 20).toISOString(),
+  }
+];
+
 

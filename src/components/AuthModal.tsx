@@ -3,6 +3,7 @@ import { X, Mail, Lock, User, ArrowRight, Chrome, Check, ShieldCheck } from 'luc
 import { useAuth } from '../context/AuthContext';
 import { getCleanAuthErrorMessage } from '../lib/firebase';
 import { validateStrongPassword, checkPasswordRequirements } from '../lib/formatters';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -15,6 +16,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   initialView = 'login',
 }) => {
+  useLockBodyScroll(isOpen);
+
   const [view, setView] = useState<'login' | 'register' | 'forgot'>(initialView);
   const { loginWithEmail, registerWithEmail, resetPassword } = useAuth();
 

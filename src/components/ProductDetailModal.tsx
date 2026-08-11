@@ -11,6 +11,7 @@ import { useToast } from '../context/ToastContext';
 import { formatPrice } from '../lib/formatters';
 import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface ProductDetailModalProps {
   product: Product | null;
@@ -140,6 +141,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   onClose,
   onBuyNow
 }) => {
+  useLockBodyScroll(product !== null);
+
   const { addToCart } = useCart();
   const { userProfile, toggleWishlist } = useAuth();
   const { showToast } = useToast();

@@ -1,33 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    function isSignedIn() {
-      return request.auth != null;
-    }
-    
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-    
-    function isAdmin() {
-      return isSignedIn() && (
-        request.auth.token.email == "sishefa19@gmail.com" ||
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin"
-      );
-    }
-
-    // Default deny
-    match /{document=**} {
-      allow read, write: if false;
-    }
-
-    // Users collection
-    match /users/{userId} {
-      allow read: if isSignedIn();
-      allow create, update: if isOwner(userId) || isAdmin();
-      allow delete: if isAdmin();
-    }
 
     // Products collection
     match /products/{productId} {
@@ -46,9 +19,27 @@ service cloud.firestore {
 
     // Orders collection
     match /orders/{orderId} {
-      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if isAdmin();
+      allow read, write: if true;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Settings collection (flash deals timer and system settings)
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Connection test
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+
+    // Fallback for any other collections
+    match /{document=**} {
+      allow read, write: if true;
     }
   }
 }

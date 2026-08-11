@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, Tag, ArrowRight, ShoppingBag, ShieldCheck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { formatPrice } from '../lib/formatters';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface CartDrawerProps {
   onProceedToCheckout: () => void;
@@ -25,6 +26,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({ onProceedToCheckout }) =
     totalAmount,
     totalItemsCount,
   } = useCart();
+
+  useLockBodyScroll(isCartOpen);
 
   const [couponInput, setCouponInput] = useState('');
   const [loadingCoupon, setLoadingCoupon] = useState(false);

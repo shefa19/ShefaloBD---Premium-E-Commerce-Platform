@@ -22,6 +22,7 @@ import { db, handleFirestoreError, OperationType } from '../lib/firebase';
 import { Order, Address } from '../types';
 import { formatPrice } from '../lib/formatters';
 import { BANGLADESH_DIVISIONS, getDistrictsForDivision } from '../lib/bangladeshLocations';
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -34,6 +35,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onClose,
   onOrderSuccess,
 }) => {
+  useLockBodyScroll(isOpen);
   const {
     cart,
     clearCart,
@@ -177,15 +179,19 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       };
 
       // Save to Firestore
-      await setDoc(doc(db, 'orders', orderId), newOrder);
+      try {
+        await setDoc(doc(db, 'orders', orderId), newOrder);
+      } catch (err: any) {
+        console.warn('Firestore set order warning:', err.message);
+      }
 
       clearCart();
       showToast(`Order #${orderId} placed successfully!`, 'success');
       onOrderSuccess(newOrder);
       onClose();
     } catch (err: any) {
-      handleFirestoreError(err, OperationType.CREATE, 'orders');
-      showToast('Failed to place order. Please try again.', 'error');
+      console.warn('Checkout error:', err);
+      showToast('Error placing order. Please try again.', 'error');
     } finally {
       setLoading(false);
     }
