@@ -66,6 +66,18 @@ const MainApp: React.FC = () => {
 
   useLockBodyScroll(isAnyModalOpen);
 
+  // Fail-safe: Ensure body overflow is cleanly unlocked whenever all modals are closed
+  useEffect(() => {
+    if (!isAnyModalOpen) {
+      if (document.body.style.overflow === 'hidden') {
+        document.body.style.overflow = '';
+      }
+      if (document.body.style.paddingRight) {
+        document.body.style.paddingRight = '';
+      }
+    }
+  }, [isAnyModalOpen]);
+
   const historyModalCountRef = React.useRef(0);
 
   const closeTopModal = React.useCallback(() => {
